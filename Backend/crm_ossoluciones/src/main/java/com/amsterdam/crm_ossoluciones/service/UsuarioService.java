@@ -4,6 +4,8 @@ import com.amsterdam.crm_ossoluciones.idao.IdaoUsuario;
 import com.amsterdam.crm_ossoluciones.model.Usuario;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UsuarioService {
     private IdaoUsuario<Usuario> usuarioIdaoUsuario;
@@ -14,7 +16,11 @@ public class UsuarioService {
     }
 
     //METODOS:
-    public Usuario guardarUsuario(Usuario usuario){
-        return usuarioIdaoUsuario.guardar(usuario);
-    }
+    public Usuario guardarUsuario(Usuario usuario){ return usuarioIdaoUsuario.guardar(usuario);}
+    public List<Usuario> buscarTodosLosUsuarios(String usuarios){ return usuarioIdaoUsuario.buscarTodos(usuarios); }
+    public Usuario buscarUsuarioPorId(String tipo, Integer id){ return usuarioIdaoUsuario.buscarPorId(tipo,id); }
+    public void eliminarUsuarioPorId(String tipo, Integer id){ usuarioIdaoUsuario.eliminarPorId(tipo,id); }
+    public void actualizarUsuario(Usuario usuario){ usuarioIdaoUsuario.actualizar(usuario); }
+    public String mostrarPerfilDeRoll(String nombreCompleto) { return usuarioIdaoUsuario.mostrarPerfilDeRoll(nombreCompleto); }
+    public Usuario buscarUsuarioPorEmail(String email){ return usuarioIdaoUsuario.buscarPorEmail(email); }
 }
