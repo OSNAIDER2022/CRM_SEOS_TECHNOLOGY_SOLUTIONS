@@ -10,7 +10,7 @@ import java.util.List;
 public class UsuarioService {
     private IdaoUsuario<Usuario> usuarioIdaoUsuario;
 
-    //CONSTRUCTOR:
+    //CONSTRUCTOR:INSERT
     public UsuarioService(IdaoUsuario<Usuario> usuarioIdaoUsuario) {
         this.usuarioIdaoUsuario = usuarioIdaoUsuario;
     }
@@ -21,6 +21,6 @@ public class UsuarioService {
     public Usuario buscarUsuarioPorId(String tipo, Integer id){ return usuarioIdaoUsuario.buscarPorId(tipo,id); }
     public void eliminarUsuarioPorId(String tipo, Integer id){ usuarioIdaoUsuario.eliminarPorId(tipo,id); }
     public void actualizarUsuario(Usuario usuario){ usuarioIdaoUsuario.actualizar(usuario); }
-    public String mostrarPerfilDeRoll(String nombreCompleto) { return usuarioIdaoUsuario.mostrarPerfilDeRoll(nombreCompleto); }
-    public Usuario buscarUsuarioPorEmail(String email){ return usuarioIdaoUsuario.buscarPorEmail(email); }
+    public String mostrarPerfilDeRoll(String tipo, String nombreCompleto) { return usuarioIdaoUsuario.mostrarPerfilDeRoll(tipo,nombreCompleto); }
+    public Usuario buscarUsuarioPorEmail(String tipo, String email){ return usuarioIdaoUsuario.buscarPorEmail(tipo,email); }
 }

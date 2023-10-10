@@ -2,12 +2,32 @@ package com.amsterdam.crm_ossoluciones.model;
 
 import java.util.Objects;
 
+/*MODEL USUARIO:
+* Este model es la clase para la administracion de las tablas de la base de datos DATABASE_OSSOLUCIONES,
+* relacionadas a continuacion:
+* - CLIENTES
+* - PROVEEDORES
+* - COLABORADORES
+*
+* El objetivo de este model es la aplicacion de la metodología SOLID para las actuales y los futuros
+* implementamientos que puedan dar lugar.
+* El model maneja los siguientes atributos:
+* - id
+* - nombre completo
+* - email
+* - password
+* - celular
+* - identificacion
+* - foto
+* - roll_id
+* */
+
 public class Usuario {
     //ATRIBUTOS:
     private Integer id;
     private String nombreCompleto;
     private String email;
-    private String password;
+    private String passwrd;
     private String celular;
     private String identificacion;
     private String foto;
@@ -15,11 +35,11 @@ public class Usuario {
 
     //CONSTRUCTORES:
     //con id:
-    public Usuario(Integer id, String nombreCompleto, String email, String password, String celular, String identificacion, String foto, Integer roll_id) {
+    public Usuario(Integer id, String nombreCompleto, String email, String passwrd, String celular, String identificacion, String foto, Integer roll_id) {
         this.id = id;
         this.nombreCompleto = nombreCompleto;
         this.email = email;
-        this.password = password;
+        this.passwrd = passwrd;
         this.celular = celular;
         this.identificacion = identificacion;
         this.foto = foto;
@@ -27,10 +47,10 @@ public class Usuario {
     }
 
     //sin id:
-    public Usuario(String nombreCompleto, String email, String password, String celular, String identificacion, String foto, Integer roll_id) {
+    public Usuario(String nombreCompleto, String email, String passwrd, String celular, String identificacion, String foto, Integer roll_id) {
         this.nombreCompleto = nombreCompleto;
         this.email = email;
-        this.password = password;
+        this.passwrd = passwrd;
         this.celular = celular;
         this.identificacion = identificacion;
         this.foto = foto;
@@ -67,12 +87,12 @@ public class Usuario {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPasswrd() {
+        return passwrd;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassword(String passwrd) {
+        this.passwrd = passwrd;
     }
 
     public String getCelular() {
@@ -114,12 +134,12 @@ public class Usuario {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Usuario usuario = (Usuario) o;
-        return Objects.equals(id, usuario.id) && Objects.equals(nombreCompleto, usuario.nombreCompleto) && Objects.equals(email, usuario.email) && Objects.equals(password, usuario.password) && Objects.equals(celular, usuario.celular) && Objects.equals(identificacion, usuario.identificacion) && Objects.equals(foto, usuario.foto) && Objects.equals(roll_id, usuario.roll_id);
+        return Objects.equals(id, usuario.id) && Objects.equals(nombreCompleto, usuario.nombreCompleto) && Objects.equals(email, usuario.email) && Objects.equals(passwrd, usuario.passwrd) && Objects.equals(celular, usuario.celular) && Objects.equals(identificacion, usuario.identificacion) && Objects.equals(foto, usuario.foto) && Objects.equals(roll_id, usuario.roll_id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nombreCompleto, email, password, celular, identificacion, foto, roll_id);
+        return Objects.hash(id, nombreCompleto, email, passwrd, celular, identificacion, foto, roll_id);
     }
 
     //USER DETAILS:(hasta implementar seguridad)

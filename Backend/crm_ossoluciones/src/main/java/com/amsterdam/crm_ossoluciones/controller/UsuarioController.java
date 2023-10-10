@@ -34,13 +34,13 @@ public class UsuarioController {
     public ResponseEntity<Usuario> buscarUsuarioPorId(@PathVariable String tipo, @PathVariable Integer id){
         return ResponseEntity.ok(usuarioService.buscarUsuarioPorId(tipo,id));
     }
-    @GetMapping("/buscar_nombre/{nombreCompleto}")
-    public ResponseEntity<String> mostrarPerfilDelRoll(@PathVariable String nombreCompleto){
-        return ResponseEntity.ok(usuarioService.mostrarPerfilDeRoll(nombreCompleto));
+    @GetMapping("/buscar_roll/{tipo}={nombreCompleto}")
+    public ResponseEntity<String> mostrarPerfilDelRoll(@PathVariable String tipo, @PathVariable String nombreCompleto){
+        return ResponseEntity.ok(usuarioService.mostrarPerfilDeRoll(tipo,nombreCompleto));
     }
-    @GetMapping("/buscarEmail/{email}")
-    public ResponseEntity<Usuario> buscarUsuarioPorEmail(@PathVariable String email){
-        return ResponseEntity.ok(usuarioService.buscarUsuarioPorEmail(email));
+    @GetMapping("/buscar_email/{tipo}={email}")
+    public ResponseEntity<Usuario> buscarUsuarioPorEmail(@PathVariable String tipo, @PathVariable String email){
+        return ResponseEntity.ok(usuarioService.buscarUsuarioPorEmail(tipo,email));
     }
     //DELETE
     @DeleteMapping("/eliminar_id/{tipo}={id}")

@@ -2,7 +2,6 @@ package com.amsterdam.crm_ossoluciones.daoMySQL;
 
 import com.amsterdam.crm_ossoluciones.db.DatabaseOsSoluciones;
 import com.amsterdam.crm_ossoluciones.idao.IdaoUsuario;
-import com.amsterdam.crm_ossoluciones.model.Roll;
 import com.amsterdam.crm_ossoluciones.model.Usuario;
 import org.springframework.stereotype.Repository;
 
@@ -22,30 +21,24 @@ public class UsuarioDaoMysql implements IdaoUsuario<Usuario> {
         try{
             connection = DatabaseOsSoluciones.getConnection();
 
-            StringBuffer SQL_INSERT = new StringBuffer();
-            SQL_INSERT
-                    .append("insert into ").append("USUARIO")
-                    .append("(NOMBRE_COMPLETO, EMAIL, PASSWORD, CELULAR, IDENTIFICACION, FOTO, ROLL_ID)")
-                    .append(" values").append("(?,?,?,?,?,?,?)");
+            StringBuffer SQL_INSERT_USER = new StringBuffer();
+            SQL_INSERT_USER.append("insert into ").append("USUARIO").append("(NOMBRE_COMPLETO, EMAIL, PASSWRD, CELULAR, IDENTIFICACION, FOTO, ROLL_ID)").append(" values").append("(?,?,?,?,?,?,?);");
 
             switch (usuario.getRoll_id()){
-                /*los valores de los case serán reemplazados por los traídos desde la tabla de ROLLES
-                * modificandolos por el roll.perfil*/
                 case 10:
-                    SQL_INSERT.replace(12,19,"CLIENTES");
+                    SQL_INSERT_USER.replace(12,19,"CLIENTES");
                     break;
                 case 11:
-                    SQL_INSERT.replace(12,19,"PROVEEDORES");
+                    SQL_INSERT_USER.replace(12,19,"PROVEEDORES");
                     break;
                 default:
-                    SQL_INSERT.replace(12,19,"COLABORADORES");
+                    SQL_INSERT_USER.replace(12,19,"COLABORADORES");
             }
 
-
-            PreparedStatement psinsert = connection.prepareStatement(String.valueOf(SQL_INSERT), Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement psinsert = connection.prepareStatement(String.valueOf(SQL_INSERT_USER), Statement.RETURN_GENERATED_KEYS);
             psinsert.setString(1, usuario.getNombreCompleto());
             psinsert.setString(2,usuario.getEmail());
-            psinsert.setString(3,usuario.getPassword());
+            psinsert.setString(3,usuario.getPasswrd());
             psinsert.setString(4,usuario.getCelular());
             psinsert.setString(5,usuario.getIdentificacion());
             psinsert.setString(6,usuario.getFoto());
@@ -129,25 +122,25 @@ public class UsuarioDaoMysql implements IdaoUsuario<Usuario> {
         try{
             connection = DatabaseOsSoluciones.getConnection();
 
-            StringBuffer SQL_SEARCH_BY_ID = new StringBuffer();
-            SQL_SEARCH_BY_ID.append("select * from ").append("USUARIO").append(" where id = ?");
+            StringBuffer SQL_SEARCH_USER_BY_ID = new StringBuffer();
+            SQL_SEARCH_USER_BY_ID.append("select * from ").append("USUARIO").append(" where id = ?");
 
             switch (tipo){
 
                 case "cliente":
-                    SQL_SEARCH_BY_ID.replace(14,21,"CLIENTES");
+                    SQL_SEARCH_USER_BY_ID.replace(14,21,"CLIENTES");
                     break;
                 case "proveedor":
-                    SQL_SEARCH_BY_ID.replace(14,21,"PROVEEDORES");
+                    SQL_SEARCH_USER_BY_ID.replace(14,21,"PROVEEDORES");
                     break;
                 case "colaborador":
-                    SQL_SEARCH_BY_ID.replace(14,21,"COLABORADORES");
+                    SQL_SEARCH_USER_BY_ID.replace(14,21,"COLABORADORES");
                     break;
                 default:
                    return null;
             }
 
-            PreparedStatement psSearchById = connection.prepareStatement(String.valueOf(SQL_SEARCH_BY_ID));
+            PreparedStatement psSearchById = connection.prepareStatement(String.valueOf(SQL_SEARCH_USER_BY_ID));
             psSearchById.setInt(1,id);
 
             ResultSet rs = psSearchById.executeQuery();
@@ -176,24 +169,24 @@ public class UsuarioDaoMysql implements IdaoUsuario<Usuario> {
         try{
             connection = DatabaseOsSoluciones.getConnection();
 
-            StringBuffer SQL_DELETE_BY_ID = new StringBuffer();
-            SQL_DELETE_BY_ID.append("delete from ").append("USUARIO").append(" where id = ?");
+            StringBuffer SQL_DELETE_USER_BY_ID = new StringBuffer();
+            SQL_DELETE_USER_BY_ID.append("delete from ").append("USUARIO").append(" where id = ?");
 
             switch (tipo){
 
                 case "cliente":
-                    SQL_DELETE_BY_ID.replace(12,19,"CLIENTES");
+                    SQL_DELETE_USER_BY_ID.replace(12,19,"CLIENTES");
                     break;
                 case "proveedor":
-                    SQL_DELETE_BY_ID.replace(12,19,"PROVEEDORES");
+                    SQL_DELETE_USER_BY_ID.replace(12,19,"PROVEEDORES");
                     break;
                 case "colaborador":
-                    SQL_DELETE_BY_ID.replace(12,19,"COLABORADORES");
+                    SQL_DELETE_USER_BY_ID.replace(12,19,"COLABORADORES");
                     break;
                     default:
             }
 
-            PreparedStatement psDelete = connection.prepareStatement(String.valueOf(SQL_DELETE_BY_ID));
+            PreparedStatement psDelete = connection.prepareStatement(String.valueOf(SQL_DELETE_USER_BY_ID));
             psDelete.setInt(1,id);
             psDelete.execute();
 
@@ -215,26 +208,24 @@ public class UsuarioDaoMysql implements IdaoUsuario<Usuario> {
         try {
             connection = DatabaseOsSoluciones.getConnection();
 
-            StringBuffer SQL_UPDATE = new StringBuffer();
-            SQL_UPDATE.append("update ").append("USUARIO").append(" set NOMBRE_COMPLETO = ?, set EMAIL = ?, set PASSWORD = ?, set CELULAR = ?, set IDENTIFICACION = ?, set FOTO = ?, set ROLL_ID = ?").append(" where ID = ?");
+            StringBuffer SQL_UPDATE_USER = new StringBuffer();
+            SQL_UPDATE_USER.append("update ").append("USUARIO").append(" set NOMBRE_COMPLETO = ?, EMAIL = ?, PASSWRD = ?, CELULAR = ?, IDENTIFICACION = ?, FOTO = ?, ROLL_ID = ?").append(" where ID = ?");
 
             switch (usuario.getRoll_id()){
-                /*los valores de los case serán reemplazados por los traídos desde la tabla de ROLLES
-                 * modificandolos por el roll.perfil*/
                 case 10:
-                    SQL_UPDATE.replace(7,14,"CLIENTES");
+                    SQL_UPDATE_USER.replace(7,14,"CLIENTES");
                     break;
                 case 11:
-                    SQL_UPDATE.replace(7,14,"PROVEEDORES");
+                    SQL_UPDATE_USER.replace(7,14,"PROVEEDORES");
                     break;
                 default:
-                    SQL_UPDATE.replace(7,14,"COLABORADORES");
+                    SQL_UPDATE_USER.replace(7,14,"COLABORADORES");
             }
 
-            PreparedStatement psUpdate = connection.prepareStatement(String.valueOf(SQL_UPDATE));
+            PreparedStatement psUpdate = connection.prepareStatement(String.valueOf(SQL_UPDATE_USER));
             psUpdate.setString(1, usuario.getNombreCompleto());
             psUpdate.setString(2, usuario.getEmail());
-            psUpdate.setString(3, usuario.getPassword());
+            psUpdate.setString(3, usuario.getPasswrd());
             psUpdate.setString(4,usuario.getCelular());
             psUpdate.setString(5, usuario.getIdentificacion());
             psUpdate.setString(6, usuario.getFoto());
@@ -251,31 +242,31 @@ public class UsuarioDaoMysql implements IdaoUsuario<Usuario> {
                 e2.printStackTrace();
             }
         }
-
     }
 
     @Override
-    public String mostrarPerfilDeRoll(String nombreCompleto) {
+    public String mostrarPerfilDeRoll(String tipo, String nombreCompleto) {
+        /*
         Connection connection = null;
-        Usuario usuario = null;
         Roll roll = null;
 
         try {
             connection = DatabaseOsSoluciones.getConnection();
+
             StringBuffer SQL_SHOW_ROLL_PROFILE = new StringBuffer();
             SQL_SHOW_ROLL_PROFILE.append("select ROLLES.PERFIL from ").append("USUARIO").append(" left join ROLLES on ").append("USUARIO").append(".ROLL_ID = ROLLES.ID WHERE ").append("USUARIO").append(".NOMBRE_COMPLETO = ?");
 
-            switch (usuario.getRoll_id()){
-                /*los valores de los case serán reemplazados por los traídos desde la tabla de ROLLES
-                 * modificandolos por el roll.perfil*/
-                case 10:
+            switch (tipo){
+                case "cliente":
                     SQL_SHOW_ROLL_PROFILE.replace(26,33,"CLIENTES").replace(55,62,"CLIENTES").replace(90,97,"CLIENTES");
                     break;
-                case 11:
+                case "proveedor":
                     SQL_SHOW_ROLL_PROFILE.replace(26,33,"PROVEEDORES").replace(58,65,"PROVEEDORES").replace(96,103,"PROVEEDORES");
                     break;
-                default:
+                case "colaborador":
                     SQL_SHOW_ROLL_PROFILE.replace(26,33,"COLABORADORES").replace(60,67,"COLABORADORES").replace(100,107,"COLABORADORES");
+                    break;
+                default:
             }
 
             PreparedStatement psShowProfile = connection.prepareStatement(String.valueOf(SQL_SHOW_ROLL_PROFILE));
@@ -283,8 +274,10 @@ public class UsuarioDaoMysql implements IdaoUsuario<Usuario> {
 
             ResultSet rs = psShowProfile.executeQuery();
             while (rs.next()){
-                roll = new Roll(rs.getString(1));
+                roll = new Roll(rs.getInt(1),rs.getString(2));
+
             }
+            System.out.println(roll.getPerfil());
 
         }catch (Exception e){
             e.printStackTrace();
@@ -295,12 +288,14 @@ public class UsuarioDaoMysql implements IdaoUsuario<Usuario> {
                 e2.printStackTrace();
             }
         }
+        */
 
-        return roll.getPerfil();
+        return null;
     }
 
     @Override
-    public Usuario buscarPorEmail(String email) {
+    public Usuario buscarPorEmail(String tipo, String email) {
+        /*
         Connection connection = null;
         Usuario usuario = null;
 
@@ -308,19 +303,19 @@ public class UsuarioDaoMysql implements IdaoUsuario<Usuario> {
             connection = DatabaseOsSoluciones.getConnection();
 
             StringBuffer SQL_SEARCH_BY_EMAIL = new StringBuffer();
-            SQL_SEARCH_BY_EMAIL.append("update ").append("USUARIO").append(" set NOMBRE_COMPLETO = ?, set EMAIL = ?, set PASSWORD = ?, set CELULAR = ?, set IDENTIFICACION = ?, set FOTO = ?, set ROLL_ID = ?").append(" where ID = ?");
+            SQL_SEARCH_BY_EMAIL.append("select * from ").append("USUARIO").append(" where EMAIL = ?");
 
-            switch (usuario.getRoll_id()){
-                /*los valores de los case serán reemplazados por los traídos desde la tabla de ROLLES
-                 * modificandolos por el roll.perfil*/
-                case 10:
+            switch (tipo){
+                case "cliente":
                     SQL_SEARCH_BY_EMAIL.replace(14,21,"CLIENTES");
                     break;
-                case 11:
+                case "proveedor":
                     SQL_SEARCH_BY_EMAIL.replace(14,21,"PROVEEDORES");
                     break;
-                default:
+                case "colaborador":
                     SQL_SEARCH_BY_EMAIL.replace(14,21,"COLABORADORES");
+                    break;
+                default:
             }
 
             PreparedStatement psSearchByEmail = connection.prepareStatement(String.valueOf(SQL_SEARCH_BY_EMAIL));
@@ -340,7 +335,7 @@ public class UsuarioDaoMysql implements IdaoUsuario<Usuario> {
                 e2.printStackTrace();
             }
         }
-
-        return usuario;
+        */
+        return null;
     }
 }
