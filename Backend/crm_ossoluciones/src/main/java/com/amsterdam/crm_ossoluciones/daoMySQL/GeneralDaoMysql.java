@@ -35,7 +35,7 @@ public class GeneralDaoMysql implements IdaoGeneral<General> {
                     SQL_INSERT_GENERAL.replace(12,19,"ESTADOS_DE_PRODUCTOS").replace(33,38,"ESTADO");
                     break;
                 case "tiempo_garantia":
-                    SQL_INSERT_GENERAL.replace(12,19,"TIEMPOS_GARANTIA").replace(29,34,"TIEMPO");
+                    SQL_INSERT_GENERAL.replace(12,19,"TIEMPOS_GARANTIAS").replace(30,35,"TIEMPO");
                     break;
                 default:
                     return null;
@@ -47,7 +47,7 @@ public class GeneralDaoMysql implements IdaoGeneral<General> {
 
             ResultSet rs = psInsert.getGeneratedKeys();
             while (rs.next()){
-                general = new General(rs.getInt(1),rs.getString(2));
+                general.setId(rs.getInt(1));
             }
 
 
@@ -116,28 +116,33 @@ public class GeneralDaoMysql implements IdaoGeneral<General> {
         Connection connection = null;
         General general = null;
 
+
+
         try{
+
+            connection = DatabaseOsSoluciones.getConnection();
+
             StringBuffer SQL_SEARCH_GENERAL_BY_ID = new StringBuffer();
             SQL_SEARCH_GENERAL_BY_ID.append("select * from ").append("GENERAL").append(" where id = ?");
             switch (tipo){
                 case "roll":
-                    SQL_SEARCH_GENERAL_BY_ID.replace(14,20,"ROLLES");
+                    SQL_SEARCH_GENERAL_BY_ID.replace(14,21,"ROLLES");
                     break;
                 case "estado_servicio":
-                    SQL_SEARCH_GENERAL_BY_ID.replace(14,20,"ESTADOS_DE_SERVICIOS");
+                    SQL_SEARCH_GENERAL_BY_ID.replace(14,21,"ESTADOS_DE_SERVICIOS");
                     break;
                 case "estado_producto":
-                    SQL_SEARCH_GENERAL_BY_ID.replace(14,20,"ESTADOS_DE_PRODUCTOS");
+                    SQL_SEARCH_GENERAL_BY_ID.replace(14,21,"ESTADOS_DE_PRODUCTOS");
                     break;
                 case "tiempo_garantia":
-                    SQL_SEARCH_GENERAL_BY_ID.replace(14,20,"TIEMPOS_GARANTIAS");
+                    SQL_SEARCH_GENERAL_BY_ID.replace(14,21,"TIEMPOS_GARANTIAS");
                     break;
                 default:
+                    return null;
             }
 
-            connection = DatabaseOsSoluciones.getConnection();
             PreparedStatement psSearchById = connection.prepareStatement(String.valueOf(SQL_SEARCH_GENERAL_BY_ID));
-            psSearchById.setInt(1,general.getId());
+            psSearchById.setInt(1,id);
 
             ResultSet rs = psSearchById.executeQuery();
             while (rs.next()){
@@ -174,6 +179,7 @@ public class GeneralDaoMysql implements IdaoGeneral<General> {
                     break;
                 case "estado_producto":
                     SQL_DELETE_GENERAL_BY_ID.replace(12,19,"ESTADOS_DE_PRODUCTOS");
+                    break;
                 case "tiempo_garantia":
                     SQL_DELETE_GENERAL_BY_ID.replace(12,19,"TIEMPOS_GARANTIAS");
                     break;
@@ -215,7 +221,7 @@ public class GeneralDaoMysql implements IdaoGeneral<General> {
                     SQL_UPDATE_GENERAL.replace(7,14,"ESTADOS_DE_PRODUCTOS").replace(32,37,"ESTADO");
                     break;
                 case "tiempo_garantia":
-                    SQL_UPDATE_GENERAL.replace(29,34,"TIEMPO");
+                    SQL_UPDATE_GENERAL.replace(7,14,"TIEMPOS_GARANTIAS").replace(29,34,"TIEMPO");
                     break;
                 default:
             }

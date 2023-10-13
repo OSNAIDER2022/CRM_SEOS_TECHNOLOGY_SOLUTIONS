@@ -10,7 +10,7 @@ import java.util.List;
 public class UsuarioService {
     private IdaoUsuario<Usuario> usuarioIdaoUsuario;
 
-    //CONSTRUCTOR:INSERT
+    //CONSTRUCTOR:
     public UsuarioService(IdaoUsuario<Usuario> usuarioIdaoUsuario) {
         this.usuarioIdaoUsuario = usuarioIdaoUsuario;
     }

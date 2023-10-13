@@ -20,8 +20,8 @@ public class GeneralController {
     }
 
     //METODOS:
-    @PostMapping("/guardar/{tipo}")
-    public ResponseEntity<General> guardarGeneral(String tipo, @RequestBody General general){
+    @PostMapping("{tipo}")
+    public ResponseEntity<General> guardarGeneral(@PathVariable String tipo, @RequestBody General general){
         return ResponseEntity.ok(generalService.guardarGeneral(tipo,general));
     }
 
@@ -41,7 +41,7 @@ public class GeneralController {
         return ResponseEntity.ok("Se ha eliminado un GENERAL");
     }
 
-    @PutMapping("/actualizar/{tipo}={id}")
+    @PutMapping("/actualizar/{tipo}")
     public ResponseEntity<General> actualizarGeneral(@PathVariable String tipo, @RequestBody General general){
         generalService.actualizarGeneral(tipo,general);
         return ResponseEntity.ok(general);
