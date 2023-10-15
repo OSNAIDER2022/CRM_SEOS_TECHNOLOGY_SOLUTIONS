@@ -3,7 +3,8 @@ CRM_OSSOLUCIONES
 
 
 Este proyecto es pensado para la creacion de un CRM en base al modelo de negocio de una empresa prestadora de servicios TI. Se realizará la conexion con el siguiente modelo de base de datos:
-![modelo FINAL de DATABASE_OSSOLUCIONES](https://github.com/OSNAIDER2022/CRM_OSSOLUCIONES/assets/105904620/a8a3017a-0ccc-4357-8fc5-562e1466e17b)
+![image](https://github.com/OSNAIDER2022/CRM_OSSOLUCIONES/assets/105904620/b7095e49-b3ad-4bed-8201-7dac4782d8b8)
+
 
 
 TECNOLOGIAS A USAR:
