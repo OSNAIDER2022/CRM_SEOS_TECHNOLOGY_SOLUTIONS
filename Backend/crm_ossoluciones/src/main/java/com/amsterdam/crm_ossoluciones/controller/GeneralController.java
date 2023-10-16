@@ -47,6 +47,4 @@ public class GeneralController {
         return ResponseEntity.ok(general);
     }
 
-
-
 }
